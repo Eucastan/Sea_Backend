@@ -1,0 +1,44 @@
+# Ignore Git files
+.git
+.gitignore
+
+# Ignore Node.js artifacts
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignore environment files (secrets!)
+.env
+.env.*
+!.env.example  
+
+# Ignore logs and temp files
+logs/
+*.log
+tmp/
+
+# Ignore build/test artifacts
+tests/
+coverage/
+dist/
+build/
+
+# Ignore Docker files (self-referential)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore docs and misc
+README.md
+LICENSE
+*.md
+
+# Ignore VS Code/IDE stuff
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore database dumps or backups
+*.sql
+*.dump

@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  pharm-mysql:
+    image: mysql:8.0
+    restart: always
+    env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persist DB
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+  seapharmacy:
+    build: .
+    container_name: seapharmacy
+    ports:
+      - "5000:5000"
+    env_file: .env
+    depends_on:
+      pharm-mysql:
+        condition: service_healthy
+    profiles: ["prod"]
+
+
+# ---- DEV ONLY ----
+  seapharmacy-dev:
+    build: .
+    container_name: seapharmacy-dev
+    ports:
+      - "5000:5000"
+    env_file: .env
+    depends_on:
+      pharm-mysql:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    command: ["npm", "run", "dev"]   # dev mode
+    profiles: ["dev"]
+
+volumes:
+  mysql_data:
