@@ -19,7 +19,7 @@ const syncDB = async () => {
         console.log("Authentication successful");
 
         // Only alter in development
-        if (process.env.NODE_ENV !== "production") {
+        if (process.env.NODE_ENV !== "production") {      
         await sequelize.sync({ force: false, alter: true });
         console.log("Database synchronized (dev mode).");
         }
