@@ -11,7 +11,7 @@ exports.register = async (req, res) => {
         if(user) return res.status(400).json({ msg: "User already exists"});
 
         const newUser = await User.create({email, password});
-        const token = jwt.sign({id: user.id, email: user.email}, process.env.JWT_SECRET, {expiresIn: '1h'});
+        const token = jwt.sign({id: newUser.id, email: newUser.email}, process.env.JWT_SECRET, {expiresIn: '1h'});
         res.status(201).json({msg: "User created successfully", token});
     } catch (err) {
         res.status(500).json({msg: "Internal Server error", error: err.message});
